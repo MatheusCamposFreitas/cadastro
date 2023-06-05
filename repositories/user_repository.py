@@ -14,5 +14,5 @@ class UserRepository:
         self.session.commit()
 
     def get_by_id(self, user_id):
-        return self.session.query(User).filter_by(id=user_id).first()
+        return self.session.query(User).filter_by(cpf=user_id).first()
 

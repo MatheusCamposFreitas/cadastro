@@ -11,3 +11,12 @@ class User(Base):
     email = Column(String(20))
     pis = Column(String(20))
     senha = Column(String(20))
+
+    def to_dict(self):
+        return {
+            'cpf': self.cpf,
+            'nome': self.nome,
+            'email': self.email,
+            'pis': self.pis,
+            'senha': self.senha
+        }

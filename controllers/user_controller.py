@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from services.user_service import UserService
 from repositories.user_repository import UserRepository
+import jwt
 
 user_blueprint = Blueprint('user', __name__)
 user_repository = UserRepository()
@@ -23,12 +24,13 @@ def create_user():
     return jsonify(message='User created successfully'), 201
 
 
-@user_blueprint.route('/users/<user_id>', methods=['GET'])
+@user_blueprint.route('/user/<user_id>', methods=['GET'])
 def get_user(user_id):
     user_service = UserService(user_repository)
     user = user_service.get_user_by_id(user_id)
 
     if user:
-        return jsonify(user), 200
+        user_dict = user.to_dict()
+        return jsonify(user_dict), 200
     else:
         return jsonify(message='User not found'), 404
